@@ -35,7 +35,7 @@ public interface UserDao {
      * @param userName 需要更新的用户名
      * @return 是否更新成功
      */
-        boolean updatePassword(String newPassword, String userName);
+    boolean updatePassword(String newPassword, String userName);
 
     /**
      * 用户登录操作
@@ -71,4 +71,12 @@ public interface UserDao {
      * @return 撤销管理员是否成功
      */
     boolean dropAdmin(Users users);
+
+    /**
+     * 根据用户对象的充值操作
+     * @param users 需要充值的用户对象
+     * @param money 充值的金额
+     * @return 充值之后的用户余额
+     */
+    float balanceRecharge(Users users,float money);
 }

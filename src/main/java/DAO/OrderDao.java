@@ -1,6 +1,7 @@
 package DAO;
 
 import pojo.OrderDetails;
+import pojo.Users;
 
 import java.util.List;
 
@@ -10,6 +11,27 @@ import java.util.List;
  * @since 2023/7/17
  */
 public interface OrderDao {
+    /**
+     * 模拟扣款
+     * @param orderDetails 进行模拟支付的订单对象
+     * @param users 需要进行模拟支付的用户对象
+     * @return 是否扣款成功
+     */
+    boolean deductMoney(OrderDetails orderDetails, Users users);
+
+    /**
+     * 返回所有订单
+     * @return 返回订单集合
+     */
+    List<OrderDetails> getAllOrderDetails();
+
+    /**
+     * 根据订单id获取订单对象
+     * @param id 订单id
+     * @return 订单对象
+     */
+    OrderDetails getOrderDetailsById(int id);
+
     /**
      * 根据用户id获得订单
      * @param userId 用户id
@@ -31,7 +53,6 @@ public interface OrderDao {
      * @return 是否删除订单成功
      */
     boolean deleteOrder(OrderDetails orderDetails);
-
 
     /**
      * 更新订单状态，例如：未支付 => 已支付

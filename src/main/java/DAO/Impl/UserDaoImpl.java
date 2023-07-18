@@ -2,7 +2,6 @@ package DAO.Impl;
 
 import DAO.UserDao;
 import Util.DBUtil;
-import pojo.Comment;
 import pojo.Users;
 
 import java.sql.Connection;
@@ -14,6 +13,21 @@ import java.sql.ResultSet;
  * @since 2023/7/18
  */
 public class UserDaoImpl implements UserDao {
+    @Override
+    public float balanceRecharge(Users users, float money) {
+        String sql = "update users set balance = balance + ? where username = ?";
+        try (Connection conn=DBUtil.getConnection();
+             PreparedStatement ps=conn.prepareStatement(sql)){
+            ps.setFloat(1,money);
+            ps.setString(2,users.getUsername());
+            ps.execute();
+            users.setBalance(new UserDaoImpl().getUser(users.getUsername()).getBalance());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return users.getBalance();
+    }
+
     @Override
     public Users getUser(String name) {
         String sql = "select * from users where username = ?";

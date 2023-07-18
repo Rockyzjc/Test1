@@ -53,10 +53,10 @@ public class AddressDaoImpl implements AddressDao {
 
     @Override
     public boolean deleteAddress(Address address) {
-        String sql = "delete from address where id = ?";
+        String sql = "delete from address where address = ?";
         try(Connection connection = DBUtil.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
-            preparedStatement.setInt(1,address.getId());
+            preparedStatement.setString(1,address.getAddress());
             preparedStatement.execute();
             return true;
         }catch(Exception e){

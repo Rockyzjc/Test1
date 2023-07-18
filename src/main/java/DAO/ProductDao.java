@@ -3,12 +3,27 @@ package DAO;
 import pojo.Categories;
 import pojo.Products;
 
+import java.util.List;
+
 /**
  * 商品操作接口
  * @author te9uila
  * @since 2023/7/17
  */
 public interface ProductDao {
+    /**
+     * 返回所有商品
+     * @return 返回商品集合
+     */
+    List<Products> showAllProducts();
+
+    /**
+     * 根据分类id返回商品集合
+     * @param categoriesId 分类id
+     * @return 返回商品集合
+     */
+    List<Products> showProducts(int categoriesId);
+
     /**
      * 跟根据产品名，获得产品对象
      * @param productName 产品名

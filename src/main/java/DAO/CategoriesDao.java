@@ -2,11 +2,19 @@ package DAO;
 
 import pojo.Categories;
 
+import java.util.List;
+
 /**
  * @author te9uila
  * @since 2023/7/17
  */
 public interface CategoriesDao {
+    /**
+     * 返回分类集合
+     * @return 返回所有分类
+     */
+    List<Categories> getCategoriesList();
+
     /**
      * 根据分类名，获得分类对象
      * @param name 分类名

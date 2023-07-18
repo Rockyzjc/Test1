@@ -1,38 +1,34 @@
-package pojo;
+package Util;
 
-import lombok.AllArgsConstructor;
+import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
 /**
- * 商品表：包括商品名，商品描述，商品价格
- * @author te9uila
- * @since 2023/7/17
+ * @author zjc
+ * @since 2023/7/19
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class Products {
-    /**
-     * 商品id
-     */
-    private int id;
+public class Product {
     /**
      * 所属分类对应id
      */
+    @ExcelProperty("分类id")
     private int categoryId;
     /**
      * 商品名
      */
+    @ExcelProperty("商品名")
     private String name;
     /**
      * 商品描述
      */
+    @ExcelProperty("商品描述")
     private String description;
     /**
      * 商品价格
      */
+    @ExcelProperty("商品价格")
     private BigDecimal price;
 }
