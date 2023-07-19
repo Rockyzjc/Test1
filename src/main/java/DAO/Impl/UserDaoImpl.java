@@ -7,12 +7,31 @@ import pojo.Users;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author te9uila
  * @since 2023/7/18
  */
 public class UserDaoImpl implements UserDao {
+    @Override
+    public List<Users> getUserList() {
+        List<Users> usersList = new ArrayList<>();
+        String sql = "select * from users";
+        try(Connection connection = DBUtil.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                usersList.add(new Users(resultSet.getInt("id"),resultSet.getString("username"),resultSet.getString("password"),resultSet.getInt("isAdmin"),resultSet.getFloat("balance")));
+            }
+            return usersList;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
     public float balanceRecharge(Users users, float money) {
         String sql = "update users set balance = balance + ? where username = ?";
@@ -163,7 +182,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean setAdmin(Users users) {
-        // 发现有没有同名数据，不进行提升管理员操作
+        // 发现没有同名数据，不进行提升管理员操作
         if(!isExist(users.getUsername())){
             return false;
         }
@@ -181,7 +200,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean dropAdmin(Users users) {
-        // 发现有没有同名数据，不进行提升管理员操作
+        // 发现没有同名数据，不进行降权操作
         if(!isExist(users.getUsername())){
             return false;
         }

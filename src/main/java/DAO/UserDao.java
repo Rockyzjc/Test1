@@ -2,12 +2,20 @@ package DAO;
 
 import pojo.Users;
 
+import java.util.List;
+
 /**
  * 用户操作接口
  * @author te9uila
  * @since 2023/7/17
  */
 public interface UserDao {
+    /**
+     * 返回整个用户集合
+     * @return 返回整个用户集合
+     */
+    List<Users> getUserList();
+
     /**
      * 通过用户名获得用户对象
      * @param name 用户名

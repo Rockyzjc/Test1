@@ -5,6 +5,7 @@ import DAO.UserDao;
 import pojo.Users;
 
 import java.sql.SQLOutput;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -64,6 +65,54 @@ public class UserService {
             }
         }else {
             return 0;
+        }
+    }
+
+    /**
+     * 输出所有用户信息
+     */
+    public void showUsers(){
+        List<Users> usersList = new UserDaoImpl().getUserList();
+        for (Users users : usersList) {
+            System.out.println(users.toString());
+        }
+    }
+
+    public void updateUsers(){
+        showUsers();
+        System.out.println("输入需要提权的用户名");
+        String name = sc.nextLine();
+        if(new UserDaoImpl().setAdmin(new UserDaoImpl().getUser(name))){
+            System.out.println("用户提权成功");
+        }else {
+            System.out.println("用户提权失败，确认有没有该用户");
+        }
+    }
+
+    public void reduceUsers(){
+        showUsers();
+        System.out.println("输入需要降权的用户名");
+        String name = sc.nextLine();
+        if(new UserDaoImpl().dropAdmin(new UserDaoImpl().getUser(name))){
+            System.out.println("管理员降权成功");
+        }else{
+            System.out.println("管理员降权失败，你到底想不想降权啊，淦");
+        }
+    }
+
+    public void deleteUser(){
+        showUsers();
+        System.out.println("输入需要删除的用户名");
+        String name = sc.nextLine();
+        Users userTmp = new UserDaoImpl().getUser(name);
+        if(new UserDaoImpl().isAdmin(userTmp)){
+            System.out.println("删同行这不好叭。。。。");
+            return;
+        }
+        if(new UserDaoImpl().userCancel(userTmp)){
+            System.out.println("用户删除成功");
+        }else{
+            System.out.println("用户删除失败");
         }
     }
 }

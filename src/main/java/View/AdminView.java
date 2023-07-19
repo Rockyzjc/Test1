@@ -14,7 +14,8 @@ public class AdminView {
         System.out.println("2. 属性管理");
         System.out.println("3. 分类管理");
         System.out.println("4. 用户订单管理");
-        System.out.println("5. 退出");
+        System.out.println("5. 用户管理");
+        System.out.println("6. 退出");
         String tmp = sc.nextLine();
         switch (tmp){
             case "1":
@@ -30,6 +31,10 @@ public class AdminView {
                 new OrderManageView().orderManageView();
                 break;
             case "5":
+                // 用户管理
+                new UserManageView().userManageView();
+                break;
+            case "6":
                 // 退出
                 new StartView().startView();
                 break;
